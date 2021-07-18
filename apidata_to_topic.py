@@ -1,17 +1,18 @@
 """from requests import Session
 from os import environ
 from time import sleep
-import logging
+import logging"""
+from decouple import config
 
 from google.cloud.pubsub_v1 import PublisherClient
-from google.cloud.pubsub_v1.publisher.futures import Future"""
+from google.cloud.pubsub_v1.publisher.futures import Future
 
 import requests
 import json
 import datetime
 import time
 
-api_key = "tKFghRTe3mbwlXcvPUYl3NYQeZyL6N1T"
+api_key = config('API_KEY')
 
 pairs = "EUR/USD,USD/EUR,AUD/USD"
 
