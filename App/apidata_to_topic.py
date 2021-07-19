@@ -35,12 +35,7 @@ class DataToPubSub:
             :return: currency pair values.
             Example EURUSD 1.1239 (euro to dollar conversion)
         """
-        api_key = config('API_KEY')
-
-        pairs = "EUR/USD,USD/EUR,AUD/USD"
-
-        url = "https://api.1forge.com/quotes?pairs=" + pairs + "&api_key=" + api_key
-
+        
         response = requests.get(url)
 
         data = response.text
