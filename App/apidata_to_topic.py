@@ -52,7 +52,7 @@ class DataToPubSub:
                     str_currency = symbol_from + " TO " + symbol_to + ": "
                 if key == "p":
                     price = value
-            forex_currencies += str_currency  + str(price) + " "
+            forex_currencies += str_currency  + str(price) + " \n"
 
         return forex_currencies
 
