@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 
 golden-union-319717-45274a111df9.json
+
+.vscode
