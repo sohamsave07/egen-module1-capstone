@@ -1,5 +1,3 @@
-"""from requests import Session
-from os import environ"""
 from time import sleep
 import logging
 import os
@@ -92,7 +90,7 @@ def main():
         symbol_pairs = obj.get_currency_values()
         obj.publish_data_to_topic(symbol_pairs)
         print(symbol_pairs)      
-        time.sleep(90)
+        time.sleep(5)
 
 if __name__ == '__main__':    
     main()
