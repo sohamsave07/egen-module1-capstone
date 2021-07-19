@@ -18,7 +18,7 @@ pairs = "EUR/USD,USD/EUR,AUD/USD"
 
 url = "https://api.1forge.com/quotes?pairs=" + pairs + "&api_key=" + api_key
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/Soham/Downloads/golden-union-319717-45274a111df9.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = config('PATH_TO_JSON')
 
 class DataToPubSub:
     def __init__(self):
