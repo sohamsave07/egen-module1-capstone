@@ -2,6 +2,7 @@ import logging
 from base64 import b64decode
 from json import loads
 from random import randint
+from pandas import DataFrame
 
 from google.cloud.storage import Client
 
@@ -27,13 +28,26 @@ class SubToBucket:
             logging.error("Incorrect format")
             return ""
 
+    def transform_to_Dataframe(self, message: str) -> DataFrame:
+        try:
+            df = DataFrame(loads(message))
+            if not df.empty:
+                logging.info(f"Created DataFrame")
+            else:
+                logging.warning(f"empty dataframe")
+            return df
 
-    def upload_df_to_bucket(self, data: str, file_name: str = "payload") -> None:
+        except Exception as e:
+            logging.error(f"Error encounterered - str{e} ")
+            raise
+
+
+    def upload_df_to_bucket(self, df: DataFrame, file_name: str = "payload") -> None:
         storage_client = Client()
         bucket = storage_client.bucket(self.bucket_name)
-        blob = bucket.blob(f"{file_name}.txt")
+        blob = bucket.blob(f"{file_name}.csv")
 
-        blob.upload_from_string(data=str(data), content_type="txt")
+        blob.upload_from_string(data=df.to_csv(index=False), content_type="txt/csv")
 
         logging.info(f"file uploaded to bucket")
 
@@ -46,8 +60,8 @@ def process(event, context):
 
     obj = SubToBucket(event, context)
 
-    upload_data = obj.get_data()
-
-    obj.upload_df_to_bucket(upload_data, "data_file_"+str(randint(1000, 9999)))
+    data = obj.get_data()
+    upload_df = obj.transform_to_Dataframe(data)
+    obj.upload_df_to_bucket(upload_df, "data_file_"+str(randint(1000, 9999)))
 
         

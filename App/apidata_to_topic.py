@@ -37,24 +37,11 @@ class DataToPubSub:
         """
         
         response = requests.get(url)
-
+        print(type(response))
         data = response.text
-        #print(data)
-        currencies = json.loads(data)
-        #print(currencies)
-        forex_currencies = ""
-
-        for currency in currencies:
-            for key, value in currency.items():
-                if key == "s":
-                    symbol_from = value[:3]
-                    symbol_to = value[4:]
-                    str_currency = symbol_from + " TO " + symbol_to + ": "
-                if key == "p":
-                    price = value
-            forex_currencies += str_currency  + str(price) + " \n"
-
-        return forex_currencies
+        print(data)
+        print(type(data))
+        return data
 
     
     def get_callback(self, publish_future: Future, data: str):
@@ -84,7 +71,7 @@ def main():
     for i in range(25):
         symbol_pairs = obj.get_currency_values()
         obj.publish_data_to_topic(symbol_pairs)
-        print(symbol_pairs)      
+        #print(symbol_pairs)      
         time.sleep(5)
 
 if __name__ == '__main__':    
